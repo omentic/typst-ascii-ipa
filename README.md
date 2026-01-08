@@ -32,7 +32,7 @@ They all return the converted value as a [`string`][typst-str] and accept the se
 All examples use the Swiss German word [⟨Chuchichäschtli⟩ [ˈχʊχːiˌχæʃːtlɪ]][chuchichäschtli] for the conversion.
 
 ```typst
-#import "@preview/ascii-ipa:2.0.0": *
+#import "@preview/ascii-ipa:2.1.0": *
 
 // returns "ˈχʊχːiˌχæʃːtlɪ"
 #branner("'XUX:i,Xae)S:tlI")
@@ -65,7 +65,7 @@ You can also use [`raw`][typst-raw] for the conversion.
 This is useful if the notation uses a lot of backslashes.
 
 ```typst
-#import "@preview/ascii-ipa:2.0.0": praat
+#import "@preview/ascii-ipa:2.1.0": praat
 
 // regular string
 #praat("\\'1\\cf\\hs\\cf\\:f\\'2\\ae\\sh\\:ftl\\ic")
@@ -75,6 +75,44 @@ This is useful if the notation uses a lot of backslashes.
 ```
 
 Note: `raw` will not play nicely with notations that use ``` ` ``` a lot.
+
+### Convenience `show`-rule
+
+You can use a `show`-rule to automatically turn `raw`-blocks into converted IPA.
+The following example will turn any inline-`raw` into X-SAMPA converted IPA, unless the `<code>` label is added.
+It also properly rescales the font size to match surrounding text, since `raw` uses a 20% smaller font size for its monospaced text by default.
+This is done for aesthetic reasons, you can read more here:
+
+- https://github.com/typst/typst/issues/1331
+- https://github.com/typst/typst/issues/6302
+
+```typst
+#{
+  let font = "Your IPA font here"
+  show raw: set text(size: 1em / 0.8)
+  show raw.where(block: false): it => {
+    if it.at("label", default: none) != <code> { // skip code-labeled raws
+      text(font: font, xsampa(it))
+    } else {
+      it
+    }
+  }
+}
+
+// Example
+
+Chuchichäschtli is pronounced `"XU.X:i.%X{S:t.lI`        // will render ˈχʊ.χːi.ˌχæʃːt.lɪ as normal text
+Chuchichäschtli is pronounced `"XU.X:i.%X{S:t.lI` <code> // will render "XU.X:i.%X{S:t.lI as raw code
+```
+
+This exact beheviour is provided built-in, so you don't need to define it yourself.
+
+```typst
+#import "@preview/ascii-ipa:2.1.0": replace-raw, xsampa
+#show: replace-raw(xsampa, font: "Your IPA font here")
+```
+
+You can also customize the `skip` label and the `size` if you want, otherwise the above defaults are provided.
 
 ## Brackets & Braces
 

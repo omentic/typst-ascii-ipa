@@ -2,6 +2,11 @@
 
 follows [semantic versioning](https://semver.org)
 
+## 2.1.0
+
+- General
+  - Introduced `replace-raw` convenience `show`-rule
+
 ## 2.0.0
 
 > [!CAUTION]
