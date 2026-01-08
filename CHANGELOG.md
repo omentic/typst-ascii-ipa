@@ -6,6 +6,8 @@ follows [semantic versioning](https://semver.org)
 
 - General
   - Introduced `replace-raw` convenience `show`-rule
+- Conlang X-SAMPA (CXS)
+  - Added support
 
 ## 2.0.0
 

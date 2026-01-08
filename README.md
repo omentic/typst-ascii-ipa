@@ -16,6 +16,7 @@ The package supports multiple ASCII representations for the IPA with one functio
 | Notation | Function name   |
 |----------|-----------------|
 | Branner  | `#branner(...)` |
+| CXS      | `#cxs(...)`     |
 | Praat    | `#praat(...)`   |
 | SIL      | `#sil(...)`     |
 | X-SAMPA  | `#xsampa(...)`  |
@@ -29,34 +30,40 @@ They all return the converted value as a [`string`][typst-str] and accept the se
 
 ### Examples
 
-All examples use the Swiss German word [⟨Chuchichäschtli⟩ [ˈχʊχːiˌχæʃːtlɪ]][chuchichäschtli] for the conversion.
+All examples use the Swiss German word [⟨Chuchichäschtli⟩ [ˈχʊ.χːi.ˌχæʃːt.lɪ]][chuchichäschtli] for the conversion.
 
 ```typst
 #import "@preview/ascii-ipa:2.1.0": *
 
-// returns "ˈχʊχːiˌχæʃːtlɪ"
-#branner("'XUX:i,Xae)S:tlI")
+// returns "ˈχʊ.χːi.ˌχæʃːt.lɪ"
+#branner("'XU.X:i.,Xae)S:t.lI")
 
-// returns "'XUX:i,Xae)S:tlI"
-#branner("ˈχʊχːiˌχæʃːtlɪ", reverse: true)
+// returns "'XU.X:i.,Xae)S:t.lI"
+#branner("ˈχʊ.χːi.ˌχæʃːt.lɪ", reverse: true)
 
-// returns "ˈχʊχːiˌχæʃːtlɪ"
-#praat("\\'1\\cf\\hs\\cf\\:f\\'2\\ae\\sh\\:ftl\\ic")
+// returns "ˈχʊ.χːi.ˌχæʃːt.lɪ"
+#cxs("'XU.X:i.,X&S:t.lI")
 
-// returns "\\'1\\cf\\hs\\cf\\:f\\'2\\ae\\sh\\:ftl\\ic"
-#praat("ˈχʊχːiˌχæʃːtlɪ", reverse: true)
+// returns "'XU.X:i.,X&S:t.lI"
+#cxs("ˈχʊ.χːi.ˌχæʃːt.lɪ", reverse: true)
 
-// returns "ˈχʊχːiˌχæʃːtlɪ"
+// returns "ˈχʊ.χːi.ˌχæʃːt.lɪ"
+#praat("\\'1\\cf\\hs.\\cf\\:f.\\'2\\ae\\sh\\:ft.l\\ic")
+
+// returns "\\'1\\cf\\hs.\\cf\\:f.\\'2\\ae\\sh\\:ft.l\\ic"
+#praat("ˈχʊ.χːi.ˌχæʃːt.lɪ", reverse: true)
+
+// returns "ˈχʊ.χːi.ˌχæʃːt.lɪ"
 #sil("}x=u<x=:i}}x=a<s=:tli=")
 
 // returns "}x=u<x=:i}}x=a<s=:tli="
-#sil("ˈχʊχːiˌχæʃːtlɪ", reverse: true)
+#sil("ˈχʊ.χːi.ˌχæʃːt.lɪ", reverse: true)
 
-// returns "ˈχʊχːiˌχæʃːtlɪ"
+// returns "ˈχʊ.χːi.ˌχæʃːt.lɪ"
 #xsampa("\"XUX:i%X{S:tlI")
 
 // returns "\"XUX:i%X{S:tlI"
-#xsampa("ˈχʊχːiˌχæʃːtlɪ", reverse: true)
+#xsampa("ˈχʊ.χːi.ˌχæʃːt.lɪ", reverse: true)
 ```
 
 ### With `raw`
@@ -68,10 +75,10 @@ This is useful if the notation uses a lot of backslashes.
 #import "@preview/ascii-ipa:2.1.0": praat
 
 // regular string
-#praat("\\'1\\cf\\hs\\cf\\:f\\'2\\ae\\sh\\:ftl\\ic")
+#praat("\\'1\\cf\\hs.\\cf\\:f.\\'2\\ae\\sh\\:ft.l\\ic")
 
 // raw
-#praat(`\'1\cf\hs\cf\:f\'2\ae\sh\:ftl\ic`)
+#praat(`\'1\cf\hs.\cf\:f.\'2\ae\sh\:ft.l\ic`)
 ```
 
 Note: `raw` will not play nicely with notations that use ``` ` ``` a lot.
@@ -119,34 +126,34 @@ You can also customize the `skip` label and the `size` if you want, otherwise th
 You can easily mark your notation text as different types of brackets or braces.
 
 ```typst
-#import "@preview/ascii-ipa:2.0.0": *
+#import "@preview/ascii-ipa:2.1.0": *
 
-#phonetic("prʲɪˈvʲet") // [prʲɪˈvʲet]
-#phnt("prʲɪˈvʲet")     // [prʲɪˈvʲet]
+#phonetic("ˈχʊ.χːi.ˌχæʃːt.lɪ")          // [ˈχʊ.χːi.ˌχæʃːt.lɪ]
+#phnt("ˈχʊ.χːi.ˌχæʃːt.lɪ")              // [ˈχʊ.χːi.ˌχæʃːt.lɪ]
 
-#precise("prʲɪˈvʲet") // ⟦prʲɪˈvʲet⟧
-#prec("prʲɪˈvʲet")    // ⟦prʲɪˈvʲet⟧
+#precise("ˈχʊ.χːi.ˌχæʃːt.lɪ")           // ⟦ˈχʊ.χːi.ˌχæʃːt.lɪ⟧
+#prec("ˈχʊ.χːi.ˌχæʃːt.lɪ")              // ⟦ˈχʊ.χːi.ˌχæʃːt.lɪ⟧
 
-#phonemic("prɪvet") // /prɪvet/
-#phnm("prɪvet")     // /prɪvet/
+#phonemic("ˈχʊ.χːi.ˌχæʃːt.lɪ")          // /ˈχʊ.χːi.ˌχæʃːt.lɪ/
+#phnm("ˈχʊ.χːi.ˌχæʃːt.lɪ")              // /ˈχʊ.χːi.ˌχæʃːt.lɪ/
 
-#morphophonemic("prɪvet") // ⫽prɪvet⫽
-#mphnm("prɪvet")          // ⫽prɪvet⫽
+#morphophonemic("ˈχʊ.χːi.ˌχæʃːt.lɪ")    // ⫽ˈχʊ.χːi.ˌχæʃːt.lɪ⫽
+#mphnm("ˈχʊ.χːi.ˌχæʃːt.lɪ")             // ⫽ˈχʊ.χːi.ˌχæʃːt.lɪ⫽
 
-#indistinguishable("prʲɪˈvʲet") // (prʲɪˈvʲet)
-#idst("prʲɪˈvʲet")              // (prʲɪˈvʲet)
+#indistinguishable("ˈχʊ.χːi.ˌχæʃːt.lɪ") // (ˈχʊ.χːi.ˌχæʃːt.lɪ)
+#idst("ˈχʊ.χːi.ˌχæʃːt.lɪ")              // (ˈχʊ.χːi.ˌχæʃːt.lɪ)
 
-#obscured("prʲɪˈvʲet") // ⸨prʲɪˈvʲet⸩
-#obsc("prʲɪˈvʲet")     // ⸨prʲɪˈvʲet⸩
+#obscured("ˈχʊ.χːi.ˌχæʃːt.lɪ")          // ⸨ˈχʊ.χːi.ˌχæʃːt.lɪ⸩
+#obsc("ˈχʊ.χːi.ˌχæʃːt.lɪ")              // ⸨ˈχʊ.χːi.ˌχæʃːt.lɪ⸩
 
-#orthographic("привет") // ⟨привет⟩
-#orth("привет")         // ⟨привет⟩
+#orthographic("Chuchichäschtli")        // ⟨Chuchichäschtli⟩
+#orth("Chuchichäschtli")                // ⟨Chuchichäschtli⟩
 
-#transliterated("privyet") // ⟪privyet⟫
-#trlt("privyet")           // ⟪privyet⟫
+#transliterated("Chuchichäschtli")      // ⟪Chuchichäschtli⟫
+#trlt("Chuchichäschtli")                // ⟪Chuchichäschtli⟫
 
-#prosodic("prʲɪˈvʲet") // {prʲɪˈvʲet}
-#prsd("prʲɪˈvʲet")     // {prʲɪˈvʲet}
+#prosodic("ˈχʊ.χːi.ˌχæʃːt.lɪ")          // {ˈχʊ.χːi.ˌχæʃːt.lɪ}
+#prsd("ˈχʊ.χːi.ˌχæʃːt.lɪ")              // {ˈχʊ.χːi.ˌχæʃːt.lɪ}
 ```
 
 [repo]: https://github.com/imatpot/typst-ascii-ipa

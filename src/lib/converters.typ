@@ -1,10 +1,16 @@
 #import "utils.typ": sanitize
 #import "converters/branner.typ": convert-branner
+#import "converters/cxs.typ": convert-cxs
 #import "converters/praat.typ": convert-praat
 #import "converters/sil.typ": convert-sil
 #import "converters/xsampa.typ": convert-xsampa
 
 #let branner(text, reverse: false) = convert-branner(
+  sanitize(text),
+  reverse: reverse,
+)
+
+#let cxs(text, reverse: false) = convert-cxs(
   sanitize(text),
   reverse: reverse,
 )
@@ -23,4 +29,3 @@
   sanitize(text),
   reverse: reverse,
 )
-
