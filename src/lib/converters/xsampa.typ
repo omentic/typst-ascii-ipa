@@ -24,13 +24,8 @@
   (":", "ː"),
   (":\\", "ˑ"),
   ("</>", "↗"),
-  ("<B>", "˩"),
   ("<F>", "↘"),
-  ("<H>", "˦"),
-  ("<L>", "˨"),
-  ("<M>", "˧"),
   ("<R>", "↗"),
-  ("<T>", "˥"),
   ("<\\", "ʢ"),
   ("<\\>", "↘"),
   ("=", "̩"),
@@ -191,12 +186,44 @@
   key: (pair) => -pair.at(0).len()
 )
 
+#let samprosa-unicode = (
+  ("B", "˩"),
+  ("L", "˨"),
+  ("M", "˧"),
+  ("H", "˦"),
+  ("T", "˥"),
+)
+
+#let samprosa-to-unicode(text, reverse: false) = {
+  let (from, to) = if reverse { (1, 0) } else { (0, 1) }
+  for pair in samprosa-unicode {
+    text = text.replace(pair.at(from), pair.at(to))
+  }
+  text
+}
+
+#let convert-samprosa(text, reverse: false) = {
+  if reverse {
+    let tone-regex = regex("[˩˨˧˦˥]+")
+    while text.matches(tone-regex).len() != 0 {
+      let tone = text.matches(tone-regex).sorted(key: x => x.text.len()).last().text
+      text = text.replace(tone, "<" + samprosa-to-unicode(tone, reverse: true) + ">")
+    }
+  } else {
+    let samprosa-regex = regex("<[BLMHT]+>")
+    let tones = text.matches(samprosa-regex)
+    for tone in tones {
+      text = text.replace(tone.text, samprosa-to-unicode(tone.text.trim(regex("<|>")), reverse: false))
+    }
+  }
+  text
+}
+
 #let convert-xsampa(text, reverse: false) = {
   let (from, to) = if reverse { (1, 0) } else { (0, 1) }
-
+  text = convert-samprosa(text, reverse: reverse)
   for pair in xsampa-unicode {
     text = text.replace(pair.at(from), pair.at(to))
   }
-
-  return text
+  text
 }
