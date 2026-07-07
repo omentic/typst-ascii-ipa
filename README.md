@@ -33,7 +33,7 @@ They all return the converted value as a [`string`][typst-str] and accept the se
 All examples use the Swiss German word [⟨Chuchichäschtli⟩ [ˈχʊ.χːi.ˌχæʃːt.lɪ]][chuchichäschtli] for the conversion.
 
 ```typst
-#import "@preview/ascii-ipa:2.1.0": *
+#import "@preview/ascii-ipa:2.2.0": *
 
 // returns "ˈχʊ.χːi.ˌχæʃːt.lɪ"
 #branner("'XU.X:i.,Xae)S:t.lI")
@@ -72,7 +72,7 @@ You can also use [`raw`][typst-raw] for the conversion.
 This is useful if the notation uses a lot of backslashes.
 
 ```typst
-#import "@preview/ascii-ipa:2.1.0": praat
+#import "@preview/ascii-ipa:2.2.0": praat
 
 // regular string
 #praat("\\'1\\cf\\hs.\\cf\\:f.\\'2\\ae\\sh\\:ft.l\\ic")
@@ -115,7 +115,7 @@ Chuchichäschtli is pronounced `"XU.X:i.%X{S:t.lI` <code> // will render "XU.X:i
 This exact beheviour is provided built-in, so you don't need to define it yourself.
 
 ```typst
-#import "@preview/ascii-ipa:2.1.0": replace-raw, xsampa
+#import "@preview/ascii-ipa:2.2.0": replace-raw, xsampa
 #show: replace-raw(xsampa, font: "Your IPA font here")
 ```
 
@@ -126,7 +126,7 @@ You can also customize the `skip` label and the `size` if you want, otherwise th
 You can easily mark your notation text as different types of brackets or braces.
 
 ```typst
-#import "@preview/ascii-ipa:2.1.0": *
+#import "@preview/ascii-ipa:2.2.0": *
 
 #phonetic("ˈχʊ.χːi.ˌχæʃːt.lɪ")          // [ˈχʊ.χːi.ˌχæʃːt.lɪ]
 #phnt("ˈχʊ.χːi.ˌχæʃːt.lɪ")              // [ˈχʊ.χːi.ˌχæʃːt.lɪ]

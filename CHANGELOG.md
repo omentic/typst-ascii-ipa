@@ -2,6 +2,12 @@
 
 follows [semantic versioning](https://semver.org)
 
+## 2.2.0
+
+- X-SAMPA
+  - Added support for separator `-` (https://github.com/imatpot/typst-ascii-ipa/pull/5)
+  - Added support for [SAMPROSA](https://en.wikipedia.org/wiki/X-SAMPA#SAMPROSA) tone notation (https://github.com/imatpot/typst-ascii-ipa/pull/6)
+
 ## 2.1.0
 
 - General
